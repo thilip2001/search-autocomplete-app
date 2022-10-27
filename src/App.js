@@ -7,6 +7,7 @@ function App() {
   const [obj, setObj] = useState({});
   const [data, setData] = useState([]);
   const [click, setClick] = useState(false);
+  const [mean, setMean] = useState(false)
   useEffect(() => {
     fetchData();
   }, [searchWord]);
@@ -29,15 +30,18 @@ function App() {
     setData(newData);
     setMeaning("");
     setClick(false);
+    setMean(false);
   };
   const onSearch = (dataObj) => {
     setSearchWord(dataObj.name);
     console.log("search", dataObj);
     setObj(dataObj);
     setClick(true);
+    setMean(false)
   };
   const setGo = () => {
     setClick(true);
+    setMean(true);
     setMeaning(obj.meaning);
   };
   console.log(searchWord);
@@ -52,7 +56,7 @@ function App() {
             <div className="input-group mb-1" data-placeholder="my placeholder">
               <input
                 type="text"
-                className="form-control bg-transparent"
+                className="form-control shadow-none bg-transparent"
                 placeholder="Search"
                 value={searchWord}
                 data-placeholder="my placeholder"
@@ -69,7 +73,9 @@ function App() {
             </div>
             <div
               className={
-                searchWord ? `dropdown-content mt-0 bg-white p-1 rounded` : ""
+                searchWord && !click
+                  ? `dropdown-content mt-0 bg-white p-1 rounded`
+                  : ""
               }
             >
               {searchWord &&
@@ -88,10 +94,11 @@ function App() {
             </div>
           </div>
           <div>
-            <p style={{ textAlign: "center", marginTop: "3rem" }}>
-              {click && <b style={{ fontWeight: "700" }}>Meaning</b>}
-              {meaning}
-            </p>
+            <div style={{ textAlign: "center", marginTop: "2rem" }}>
+              {mean && <strong style={{ fontWeight: "700" }}>Meaning</strong>}
+              <br />
+              <span>{meaning}</span>
+            </div>
           </div>
         </div>
       </div>
