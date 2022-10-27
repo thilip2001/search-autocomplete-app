@@ -1,6 +1,8 @@
-import { useState } from "react";
+import axios from "axios";
+import { useState, useEffect } from "react";
 import "./App.css";
 import datas from "./data.json";
+
 
 function App() {
   const [searchWord, setSearchWord] = useState("");
@@ -8,6 +10,20 @@ function App() {
   const [obj, setObj] = useState({});
   const [data, setData] = useState([]);
   const [mean, setMean] = useState(false);
+
+
+  useEffect(()=>{
+      fetchData()
+  },[])
+  const fetchData = async () =>{
+    const datas = await axios.get(
+      "http://13.250.41.77:1596/elastic/api/v1/getPossibleSearch?search"
+    )
+    // setData(datas)
+    console.log(datas);
+  }
+
+
 
   const onChange = (event) => {
     setSearchWord(event.target.value);
@@ -34,7 +50,7 @@ function App() {
     setMeaning(obj.meaning);
   };
 
-  console.log(searchWord);
+  console.log(searchWord)
 
   return (
     <>
