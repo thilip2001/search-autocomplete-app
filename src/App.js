@@ -7,7 +7,7 @@ function App() {
   const [obj, setObj] = useState({});
   const [data, setData] = useState([]);
   const [click, setClick] = useState(false);
-  const [mean, setMean] = useState(false)
+  const [mean, setMean] = useState(false);
   useEffect(() => {
     fetchData();
   }, [searchWord]);
@@ -37,7 +37,7 @@ function App() {
     console.log("search", dataObj);
     setObj(dataObj);
     setClick(true);
-    setMean(false)
+    setMean(false);
   };
   const setGo = () => {
     setClick(true);
